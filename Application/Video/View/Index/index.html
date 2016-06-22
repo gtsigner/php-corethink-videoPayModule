@@ -1,0 +1,74 @@
+<extend name="$_home_public_layout"/>
+
+<block name="main">
+    <style>
+        .video-item {
+            min-height: 250px;
+            overflow: hidden;
+        }
+
+        .video-img {
+        }
+
+        .cat_list {
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
+        .cat_list a {
+            font-size: 17px;
+        }
+
+        .cat_list i {
+            font-size: 20px;
+        }
+
+        .cat_list .all {
+            background-color: #f00920;
+            color: #fff;
+            padding: 3px;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <ul class="list-unstyled cat_list">
+                <li class="col-lg-2"><i>分类：</i></li>
+                <li class="col-lg-1">
+                    <a class="all" href="{:U('index')}">全部</a>
+                </li>
+                <volist name="cat_list" id="vo">
+                    <li class="col-lg-1">
+                        <a href="{:U('index',array('cid'=>$vo['id']))}">{$vo.title}</a>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-xs-12">
+                <volist name="list" id="vo">
+                    <div class="col-lg-3 video-item">
+                        <div class="video-img">
+                            <a class="" href="{:U('index/detail',array('id'=>$vo['id']))}">
+                                <img style='' class="lazy img-responsive img-rounded"
+                                     data-lazy="{$vo.cover|get_cover='default'}">
+                            </a>
+                        </div>
+
+                        <div class="text-center">
+                            <span>片名称：{$vo.title}</span>
+
+                            <p>片费用：
+                                <label class="text-danger">{$vo.pay_money}</label>
+                            </p>
+                        </div>
+                    </div>
+                </volist>
+
+            </div>
+        </div>
+    </div>
+</block>
+
+<block name="script">
+
+</block>

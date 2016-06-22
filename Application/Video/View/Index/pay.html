@@ -1,0 +1,25 @@
+<extend name="$_home_public_layout"/>
+
+<block name="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <form method="post" action="">
+                    <input type="hidden" name="video_id" value="{$info.id}">
+                    <input type="hidden" name="order_no" value="{$order.order_no}">
+                    <label>订单号：{$order.order_no}</label>
+                    <label>支付金额：{$order.pay_money}</label>
+                    <label>创建时间：{$order.create_time}</label>
+                    <label>订单目的：购买视频</label>
+                    <label>视频名称：{$info.title}</label>
+                    <label>账户余额：{$user.money}</label>
+                    <button class="btn btn-danger" type="submit">确认购买</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</block>
+
+<block name="script">
+
+</block>

@@ -1,0 +1,50 @@
+<extend name="$_home_public_layout"/>
+
+<block name="script">
+    <script type="text/javascript">
+        $(function(){
+            $("#pay_submit").click(function(){
+               var money = $('input[name="money"]').val();
+                if (!money) {
+                    $.alertMessager('请输入要充值金额');
+                    return false;
+                }
+            });
+        });
+    </script>
+</block>
+
+<block name="main">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+               <form class="col-xs-12 col-md-6 form-horizontal" action="{:U('')}" method="POST" role="form">
+                   <legend>{:C('WEB_SITE_TITLE')}账户余额充值</legend>
+                   <div class="form-group">
+                       <label class="col-xs-3">账户余额：</label>
+                       <p class="col-xs-9 text-primary">{$userinfo.money|default='0.00'}</p>
+                   </div>
+                   <div class="form-group">
+                       <label class="col-xs-3">充值金额：</label>
+                       <input type="text" class="col-xs-9 form-control" name="money" placeholder="请输入要充值金额" value="100">
+                   </div>
+                   <div class="form-group">
+                        <label class="col-xs-3">充值方式</label>
+                        <p class="col-xs-9 text-primary">
+                            <volist name="allow_pay_type" id="pt">
+                                <label class="radio" for="pay_type_{$pt}">
+                                    <input type="radio" id="pay_type_{$pt}" class="radio"name="pay_type"
+                                    value="{$pt}" <if condition="$i eq 1">checked="checked"</if>>
+                                    <img src="__ROOT__/Addons/Pay/logo/{$pt}.jpg" style="height: 30px;">
+                                </label>
+                            </volist>
+                        </p>
+                   </div>
+                   <div class="form-group">
+                       <button type="submit" class="col-md-offset-3 btn btn-warning" id="pay_submit">立即支付</button>
+                   </div>
+               </form>
+            </div>
+        </div>
+    </div>
+</block>

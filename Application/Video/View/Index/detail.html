@@ -1,0 +1,66 @@
+<extend name="$_home_public_layout"/>
+
+<block name="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <input type="hidden" name="limit_time" value="{$info.free_time}" id="limit_time"/>
+                <input type="hidden" name="file_url" value="{$file_url}" id="file_url"/>
+                <input type="hidden" name="vid" value="{$info.id}" id="vid"/>
+
+                <div id="a1"></div>
+                <script type="text/javascript" src="__PUBLIC__/libs/layer/layer.js"></script>
+                <script src="__PUBLIC__/addons/ckplayer6.7/ckplayer/ckplayer.js" charset="utf-8"></script>
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $(document).bind("contextmenu", function (e) {
+                            /*屏蔽右键菜单*/
+                            return false;
+                        });
+                    });
+                    var iCount = "";
+                    var limit_time = parseInt($('#limit_time').val());
+                    var file_url = $('#file_url').val();
+                    var limit_session_time = parseInt("{:session('limit_time')}");
+                    var user_status = parseInt("{$pay_status}");
+                    var video_id = $('#vid').val();
+                    if (limit_session_time != limit_time) {
+                        layer.alert("非法输入,请阅读协议！");
+                        //location.reload();
+                    }
+                    var flashvars = {p: 0, e: 1};
+                    var video = ["./index.php?s=/video/index/readMovieFile/file_path/" + file_url + '->video/mp4'];
+                    var support = ['all'];
+                    CKobject.embedHTML5('a1', 'ckplayer_a1', 600, 400, video, flashvars, support);
+                    var video = document.getElementById('ckplayer_a1');
+
+                    function getTime() {
+                        $mumit = video.currentTime;
+                        if (parseInt($mumit) > limit_session_time - 2 && limit_session_time != -1) {
+                            video.pause();
+                            clearInterval(iCount);
+                            video.currentTime = 0;
+                            layer.confirm('该视频是收费视频,是否购买视频？', function () {
+                                        location.replace("./index.php?s=/video/index/pay/vid/" + video_id + "");//跳转
+                                    }
+                            )
+                            return false;
+                            /*跳转收费*/
+                        }
+                    }
+                    // alert(user_status)
+                    video.addEventListener("canplay", function () {
+                        startCanplay()
+                    });
+                    function startCanplay() {
+                        if (user_status != 1) {
+                            iCount = setInterval(getTime, 1000);
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</block>
+

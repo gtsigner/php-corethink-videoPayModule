@@ -1,0 +1,47 @@
+<extend name="$_admin_public_layout"/>
+<block name="main">
+    <div class="row-fluid">
+        <div class="col-lg-4"></div>
+        <form class="form col-lg-6 " method="post" action="">
+            <div class="form-group">
+                <label class="control-label">分类名称:</label>
+
+                <div class="input-group">
+                    <input name="title" required="required" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">上级分类:</label>
+
+                <div class="input-group">
+                    <select name="pid" class="form-control">
+                        <option value="0">顶级分类</option>
+                        <volist name="cat_list" id="vo">
+                            <option value="{$vo.id}">{$vo.title}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">排序:</label>
+
+                <div class="input-group">
+                    <input name="sort" value="0" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">状态:</label>
+
+                <div class="input-group">
+                    <select name="status" class="form-control">
+                        <option value="0">禁用</option>
+                        <option value="1" selected>开启</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">新增</button>
+            </div>
+        </form>
+    </div>
+</block>

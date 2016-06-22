@@ -1,0 +1,42 @@
+<extend name="$_admin_public_layout"/>
+<block name="main">
+
+    <div class="row-fluid">
+        <table class="table table-bordered table-responsive">
+
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>上级ID</th>
+                <th>分类名称</th>
+                <th>排序</th>
+                <th>创建时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.pid}</td>
+                    <td>{$vo.title}</td>
+                    <td>{$vo.sort}</td>
+                    <td>{$vo.create_time|times_to_date}</td>
+                    <td>
+                        <eq name="vo[status]" value="1">
+                            <label class="label label-success">启用</label>
+                        </eq>
+                        <eq name="vo[status]" value="0">
+                            <label class="label label-danger">未启用</label>
+                        </eq>
+                    </td>
+                    <td>
+                        <a href="#">删除</a>
+                    </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+</block>
